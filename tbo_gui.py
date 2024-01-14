@@ -12,9 +12,9 @@ def daftarParkir():
     else:
         messagebox.showinfo("Daftar Parkir", "Belum ada kendaraan yang ditambahkan.")
 
-def inputTarif():
+def inputTarif(DataParkir):
     if DataParkir:
-        pilih = int(entry_pilih())
+        pilih = entry_pilih()
         if 1 <= pilih <= len(DataParkir):
             SelectKendaraan = DataParkir[pilih - 1]
             PlatNomor = SelectKendaraan['Plat Nomor']
@@ -31,9 +31,9 @@ def inputTarif():
     else:
         messagebox.showinfo("Input Tarif", "Plat Nomor Tidak Tersedia.")
 
-def hapusParkir():
+def hapusParkir(DataParkir):
     if DataParkir:
-        pilih = int(entry_pilih())
+        pilih = entry_pilih()
         if 1 <= pilih <= len(DataParkir):
             del DataParkir[pilih - 1]
             messagebox.showinfo("Hapus Parkir", "Parkir berhasil dihapus.")
@@ -53,13 +53,13 @@ def show_menu():
     button_parkir = tk.Button(menu_window, text="Parkir Kendaraan", command=lambda: [parkirKendaraan(), menu_window.destroy()])
     button_parkir.pack()
 
-    button_daftar = tk.Button(menu_window, text="Daftar Parkir", command=lambda: [daftarParkir(), menu_window.destroy()])
+    button_daftar = tk.Button(menu_window, text="Daftar Parkir", command=lambda: [daftarParkir(DataParkir), menu_window.destroy()])
     button_daftar.pack()
 
-    button_tarif = tk.Button(menu_window, text="Tarif Parkir", command=lambda: [inputTarif(), menu_window.destroy()])
+    button_tarif = tk.Button(menu_window, text="Tarif Parkir", command=lambda: [inputTarif(DataParkir), menu_window.destroy()])
     button_tarif.pack()
 
-    button_hapus = tk.Button(menu_window, text="Hapus Parkir", command=lambda: [hapusParkir(), menu_window.destroy()])
+    button_hapus = tk.Button(menu_window, text="Hapus Parkir", command=lambda: [hapusParkir(DataParkir), menu_window.destroy()])
     button_hapus.pack()
 
     button_keluar = tk.Button(menu_window, text="Keluar", command=root.quit)
@@ -101,11 +101,18 @@ def parkirKendaraan():
 
 
 def entry_pilih():
-    pilih_label = tk.Label(root, text="Pilih")
+    pilih = tk.Tk()
+    pilih.title("Pilih kendaraan")
+    pilih.geometry("300x200")
+
+    pilih_label = tk.Label(pilih, text="Pilih")
     pilih_label.pack()
-    pilih_entry = tk.Entry(root)
+    pilih_entry = tk.Entry(pilih)
     pilih_entry.pack()
-    return entry_pilih
+
+    button_start = button_start = tk.Button(pilih, text="Parkir Kendaraan", command=lambda: inputTarif(pilih_entry.get()))
+    button_start.pack()
+    return pilih_entry
 
 def entry_tarif_per_jam():
     tarif_per_jam_label = tk.Label(root, text="Tarif Per Jam")
