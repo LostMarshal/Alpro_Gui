@@ -73,6 +73,7 @@ def entry_pilih():
     pilih_window = tk.Toplevel(root)
     pilih_window.title("Pilih kendaraan")
     pilih_window.geometry("300x200")
+    daftarParkir()
 
     pilih_label = tk.Label(pilih_window, text="Pilih")
     pilih_label.pack()
@@ -127,6 +128,7 @@ def entry_pilih_hapus():
     pilih_window = tk.Toplevel(root)
     pilih_window.title("Pilih kendaraan")
     pilih_window.geometry("300x200")
+    daftarParkir()
 
     pilih_label = tk.Label(pilih_window, text="Pilih")
     pilih_label.pack()
