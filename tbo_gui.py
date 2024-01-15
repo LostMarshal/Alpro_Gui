@@ -73,7 +73,7 @@ def parkirKendaraan():
 
     button_start = button_start = tk.Button(parkir, text="Parkir Kendaraan", command=lambda: parkirKendaraan(plat_nomor_entry.get(), jenis_kendaraan_entry.get(), tipe_kendaraan_entry.get()))
     button_start.pack()
-    
+
     def parkirKendaraan(plat_nomor, jenis_kendaraan, tipe_kendaraan):
         ParkirKendaraan = {'Plat Nomor' : plat_nomor, 'Jenis Kendaraan' : jenis_kendaraan, 'Tipe Kendaraan' : tipe_kendaraan, 'Waktu Masuk' : datetime.datetime.now()}
         DataParkir.append(ParkirKendaraan)
@@ -122,7 +122,7 @@ def entry_tarif_per_jam():
     tarif_per_jam_label.pack()
     tarif_per_jam_entry = tk.Entry(root)
     tarif_per_jam_entry.pack()
-    return entry_tarif_per_jam
+    # return entry_tarif_per_jam
 
 label_title = tk.Label(root, text="Program Parkir")
 label_title.pack()
