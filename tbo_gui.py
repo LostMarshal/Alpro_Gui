@@ -12,25 +12,6 @@ def daftarParkir():
     else:
         messagebox.showinfo("Daftar Parkir", "Belum ada kendaraan yang ditambahkan.")
 
-def inputTarif(DataParkir):
-    if DataParkir:
-        pilih = entry_pilih()
-        if 1 <= pilih <= len(DataParkir):
-            SelectKendaraan = DataParkir[pilih - 1]
-            PlatNomor = SelectKendaraan['Plat Nomor']
-            JenisKendaraan = SelectKendaraan['Jenis Kendaraan']
-            TipeKendaraan = SelectKendaraan['Tipe Kendaraan']
-            TarifPerJam = int(entry_tarif_per_jam.get())
-            WaktuMasuk = SelectKendaraan['Waktu Masuk']
-            WaktuKeluar = datetime.datetime.now()
-            TotalWaktu = (WaktuKeluar - WaktuMasuk).total_seconds() / 3600
-            TotalTarif = TarifPerJam * TotalWaktu
-            messagebox.showinfo("Nota", f"Plat Nomor          : {PlatNomor}\nJenis Kendaraan     : {JenisKendaraan}\nTipe Kendaraan      : {TipeKendaraan}\nTarif Per Jam       : {TarifPerJam}\nJam Masuk           : {WaktuMasuk}\nJam Keluar          : {WaktuKeluar}\nTotal tarif         : Rp.{TotalTarif}")
-        else:
-            messagebox.showinfo("Input Tarif", "Nomor parkir tidak valid.")
-    else:
-        messagebox.showinfo("Input Tarif", "Plat Nomor Tidak Tersedia.")
-
 def hapusParkir(DataParkir):
     if DataParkir:
         pilih = entry_pilih()
@@ -53,13 +34,13 @@ def show_menu():
     button_parkir = tk.Button(menu_window, text="Parkir Kendaraan", command=lambda: [parkirKendaraan(), menu_window.destroy()])
     button_parkir.pack()
 
-    button_daftar = tk.Button(menu_window, text="Daftar Parkir", command=lambda: [daftarParkir(DataParkir), menu_window.destroy()])
+    button_daftar = tk.Button(menu_window, text="Daftar Parkir", command=lambda: [daftarParkir(), menu_window.destroy()])
     button_daftar.pack()
 
-    button_tarif = tk.Button(menu_window, text="Tarif Parkir", command=lambda: [inputTarif(DataParkir), menu_window.destroy()])
+    button_tarif = tk.Button(menu_window, text="Tarif Parkir", command=lambda: [entry_pilih(), menu_window.destroy()])
     button_tarif.pack()
 
-    button_hapus = tk.Button(menu_window, text="Hapus Parkir", command=lambda: [hapusParkir(DataParkir), menu_window.destroy()])
+    button_hapus = tk.Button(menu_window, text="Hapus Parkir", command=lambda: [hapusParkir(), menu_window.destroy()])
     button_hapus.pack()
 
     button_keluar = tk.Button(menu_window, text="Keluar", command=root.quit)
@@ -110,9 +91,31 @@ def entry_pilih():
     pilih_entry = tk.Entry(pilih)
     pilih_entry.pack()
 
-    button_start = button_start = tk.Button(pilih, text="Parkir Kendaraan", command=lambda: inputTarif(pilih_entry.get()))
+    button_start = button_start = tk.Button(pilih, text="Parkir Kendaraan", command=lambda: entry_pilih(pilih_entry.get()))
     button_start.pack()
-    return pilih_entry
+
+    def entry_pilih(pilih):
+        entry = tk.Tk()
+        entry.title("Input Tarif")
+        entry.geometry("300x200")
+
+        if DataParkir:
+            if 1 <= pilih <= len(DataParkir):
+                SelectKendaraan = DataParkir[pilih - 1]
+                PlatNomor = SelectKendaraan['Plat Nomor']
+                JenisKendaraan = SelectKendaraan['Jenis Kendaraan']
+                TipeKendaraan = SelectKendaraan['Tipe Kendaraan']
+                TarifPerJam = int(entry_tarif_per_jam.get())
+                WaktuMasuk = SelectKendaraan['Waktu Masuk']
+                WaktuKeluar = datetime.datetime.now()
+                TotalWaktu = (WaktuKeluar - WaktuMasuk).total_seconds() / 3600
+                TotalTarif = TarifPerJam * TotalWaktu
+                messagebox.showinfo("Nota", f"Plat Nomor          : {PlatNomor}\nJenis Kendaraan     : {JenisKendaraan}\nTipe Kendaraan      : {TipeKendaraan}\nTarif Per Jam       : {TarifPerJam}\nJam Masuk           : {WaktuMasuk}\nJam Keluar          : {WaktuKeluar}\nTotal tarif         : Rp.{TotalTarif}")
+            else:
+                messagebox.showinfo("Input Tarif", "Nomor parkir tidak valid.")
+        else:
+            messagebox.showinfo("Input Tarif", "Plat Nomor Tidak Tersedia.")
+
 
 def entry_tarif_per_jam():
     tarif_per_jam_label = tk.Label(root, text="Tarif Per Jam")
