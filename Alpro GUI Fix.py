@@ -2,43 +2,33 @@ import datetime
 import tkinter as tk
 from tkinter import messagebox
 
-DataParkir = []
-
-def daftarParkir():
-    if DataParkir:
-        daftar_parkir = ""
-        for i, ParkirKendaraan in enumerate(DataParkir, start=1):
-            daftar_parkir += f"{i}. Plat Nomor               : {ParkirKendaraan['Plat Nomor']} \n    Jenis Kendaraan      : {ParkirKendaraan['Jenis Kendaraan']} \n    Tipe Kendaraan       : {ParkirKendaraan['Tipe Kendaraan']}\n\n"
-        messagebox.showinfo("Daftar Parkir", daftar_parkir)
-    else:
-        messagebox.showinfo("Daftar Parkir", "Belum ada kendaraan yang ditambahkan.")
-
 def show_menu():
-    menu_window = tk.Toplevel(root)
-    menu_window.title("Program Parkir")
-    menu_window.geometry("300x200")
+    menu_window = tk.Toplevel(root) # Menu window di root
+    menu_window.title("Program Parkir") # Title Menu Window
+    menu_window.geometry("300x200") # Size Menu Window
 
-    label_menu = tk.Label(menu_window, text="Silahkan pilih:")
-    label_menu.pack()
+    label_menu = tk.Label(menu_window, text="Silahkan pilih:") # Label Menu Window
+    label_menu.pack() # Label Menu Window pack
 
-    button_parkir = tk.Button(menu_window, text="Parkir Kendaraan", command=lambda: [parkirKendaraan(), menu_window.destroy()])
+    button_parkir = tk.Button(menu_window, text="Parkir Kendaraan", command=lambda: [parkirKendaraan(), menu_window.destroy()]) 
+    # Button Menu Parkir
     button_parkir.pack()
 
-    button_daftar = tk.Button(menu_window, text="Daftar Parkir", command=lambda: [daftarParkir(), menu_window.destroy()])
+    button_daftar = tk.Button(menu_window, text="Daftar Parkir", command=lambda: [daftarParkir(), menu_window.destroy()]) 
+    # Button Menu Daftar
     button_daftar.pack()
 
     button_tarif = tk.Button(menu_window, text="Tarif Parkir", command=lambda: [entry_pilih(), menu_window.destroy()])
+    # Button Menu Tarif
     button_tarif.pack()
 
     button_hapus = tk.Button(menu_window, text="Hapus Parkir", command=lambda: [hapusParkir(), menu_window.destroy()])
+    # Button Menu Hapus
     button_hapus.pack()
 
     button_keluar = tk.Button(menu_window, text="Keluar", command=root.quit)
+    # Button Menu Keluar
     button_keluar.pack()
-
-root = tk.Tk()
-root.title("Program Parkir")
-root.geometry("300x200")
 
 def parkirKendaraan():
     parkir = tk.Toplevel(root)
@@ -68,6 +58,15 @@ def saveParkir(plat_nomor, jenis_kendaraan, tipe_kendaraan, parkir_window):
     DataParkir.append(ParkirKendaraan)
     messagebox.showinfo("Success", "Kendaraan berhasil diparkir.")
     parkir_window.destroy()
+
+def daftarParkir():
+    if DataParkir:
+        daftar_parkir = ""
+        for i, ParkirKendaraan in enumerate(DataParkir, start=1):
+            daftar_parkir += f"{i}. Plat Nomor               : {ParkirKendaraan['Plat Nomor']} \n    Jenis Kendaraan      : {ParkirKendaraan['Jenis Kendaraan']} \n    Tipe Kendaraan       : {ParkirKendaraan['Tipe Kendaraan']}\n\n"
+        messagebox.showinfo("Daftar Parkir", daftar_parkir)
+    else:
+        messagebox.showinfo("Daftar Parkir", "Belum ada kendaraan yang ditambahkan.")
 
 def entry_pilih():
     pilih_window = tk.Toplevel(root)
@@ -159,11 +158,18 @@ def hapusParkir():
     else:
         messagebox.showinfo("Hapus Parkir", "Plat Nomor Tidak Tersedia.")
 
+#Main
+        
+DataParkir = [] # List of dictionary
 
-label_title = tk.Label(root, text="Program Parkir")
-label_title.pack()
+root = tk.Tk() # Main window
+root.title("Program Parkir") # Main window title
+root.geometry("300x200") # Main window size
 
-button_start = tk.Button(root, text="Mulai", command=show_menu)
-button_start.pack()
+label_title = tk.Label(root, text="Program Parkir") # Main window label
+label_title.pack() # Main window label pack
 
-root.mainloop()
+button_start = tk.Button(root, text="Mulai", command=show_menu) # Main window button
+button_start.pack() # Main window button pack
+
+root.mainloop() # Main window loop
